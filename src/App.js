@@ -1,23 +1,35 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 
-import Sidebar from "./components/layout/Sidebar";
-import Main from "./components/layout/Main";
-import Footer from "./components/layout/Footer";
+import Explore from "./pages/Explore";
+import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
+import Offers from "./pages/Offers";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 function App() {
 	return (
-		<Router>
-			<div className='flex'>
-				<div className='' style={{ width: "fit-content" }}>
-					<Sidebar />
-				</div>
-				<div className='flex flex-col justify-between h-screen'>
-					<Main />
-					<Footer />
-				</div>
-			</div>
-		</Router>
+		<>
+			<Router>
+				<Routes>
+					<Route path='/' element={<Explore />} />
+					<Route path='/offers' element={<Offers />} />
+					<Route path='/profile' element={<PrivateRoute />}>
+						<Route path='/profile' element={<Profile />} />
+					</Route>
+					<Route path='/sign-in' element={<SignIn />} />
+					<Route path='/sign-up' element={<SignUp />} />
+					<Route path='/forgot-password' element={<ForgotPassword />} />
+				</Routes>
+				<Navbar />
+			</Router>
+			<ToastContainer />
+		</>
 	);
 }
 
